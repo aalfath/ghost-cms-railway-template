@@ -1,5 +1,7 @@
 # Ghost on Railway
 
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/new/template/ghost-2?utm_medium=integration&utm_source=button&utm_campaign=ghost)
+
 Railway template for [Ghost](https://ghost.org), the open-source publishing platform for blogs, newsletters and paid memberships.
 
 ## What it deploys
