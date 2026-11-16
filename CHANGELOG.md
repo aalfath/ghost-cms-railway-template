@@ -2,6 +2,10 @@
 
 Each entry is one version of this Railway template. Breaking changes come first.
 
+## 2026-11-16: Deploy on Railway button
+
+- README: added the Deploy on Railway button, linked to the published template `ghost-2`. No change to the services.
+
 ## 2026-11-16: Ghost 6.77.0
 
 - First repo-based version of the Ghost template (`ghost-2`). Earlier deploys ran the `ghost:6.54.0` image directly.
