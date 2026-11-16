@@ -6,17 +6,17 @@ Railway template for [Ghost](https://ghost.org), the open-source publishing plat
 
 | Service | Source | Volume |
 |---|---|---|
-| Ghost | this repo: `ghost:6.77.0` pinned by digest, plus `railway-start.sh` | `/var/lib/ghost/content` (images, themes, files) |
+| Ghost | this repo: `ghost:6.77.0` pinned by digest, plus `railway-start.sh` and `railway-health.js` | `/var/lib/ghost/content` (images, themes, files) |
 | MySQL | `mysql:8.4.13` | `/var/lib/mysql` |
 
-Ghost listens on Railway's `PORT` (2368). The health check is `/ghost/api/admin/site/`. Open `https://YOUR-DOMAIN/ghost/` after the first deploy to create the owner account.
+Ghost listens on port 2368, which the public domain targets. Railway's health check probes `PORT` (8080): a small endpoint (`railway-health.js`) that answers 200 once Ghost's `/ghost/api/admin/site/` does. It's needed because Ghost redirects every plain-HTTP request to https, so a direct probe would only get a 301. Open `https://YOUR-DOMAIN/ghost/` after the first deploy to create the owner account.
 
 ## Variables
 
 | Variable | Service | Default | Notes |
 |---|---|---|---|
 | `url` | Ghost | `https://${{Ghost.RAILWAY_PUBLIC_DOMAIN}}` | Site URL. Change it when you add a custom domain |
-| `PORT` | Ghost | `2368` | Port Ghost listens on |
+| `PORT` | Ghost | `8080` | Health endpoint port for Railway's health check (Ghost itself stays on 2368) |
 | `database__*` | Ghost | references to the MySQL service | Database connection |
 | `security__staffDeviceVerification` | Ghost | `false` | Set `true` only once mail works |
 | `MYSQL_ROOT_PASSWORD` | MySQL | generated secret | |

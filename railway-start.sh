@@ -2,9 +2,13 @@
 # Small Railway wrapper around the official Ghost entrypoint.
 set -e
 
-# Listen on Railway's PORT (the health check and the public domain use it).
-export server__port="${PORT:-2368}"
+# Ghost listens on 2368 (the public domain targets it). Railway's PORT (8080 in
+# the template) is a small health endpoint, see railway-health.js.
+export server__port="${server__port:-2368}"
 export server__host="${server__host:-::}"
+if [ -n "${PORT:-}" ] && [ "$PORT" != "$server__port" ]; then
+  node /usr/local/bin/railway-health.js &
+fi
 
 # Site URL: use the variable if set, else the Railway public domain.
 if [ -z "${url:-}" ] && [ -n "${RAILWAY_PUBLIC_DOMAIN:-}" ]; then
